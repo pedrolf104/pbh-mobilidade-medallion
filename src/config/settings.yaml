@@ -1,0 +1,31 @@
+project:
+  name: "pbh-mobilidade-medallion"
+  timezone: "America/Sao_Paulo"
+
+storage:
+  # Por enquanto local (simples). Depois dá pra trocar por s3://... ou abfss://...
+  base_path: "./datalake"
+
+  bronze_path: "${storage.base_path}/bronze"
+  silver_path: "${storage.base_path}/silver"
+  gold_path: "${storage.base_path}/gold"
+
+datasets:
+  realtime_bus_positions:
+    dataset_page: "https://dados.pbh.gov.br/dataset/tempo_real_onibus_-_coordenada"
+    # Vamos ajustar depois para o LINK EXATO do recurso (CSV/JSON)
+    resource_url: "TO_BE_DEFINED"
+    bronze_subpath: "realtime_bus_positions"
+
+  mco:
+    dataset_page: "https://dados.pbh.gov.br/dataset/mapa-de-controle-operacional-mco-consolidado-a-partir-de-abril-de-2022"
+    resource_url: "TO_BE_DEFINED"
+    bronze_subpath: "mco"
+
+tables:
+  silver:
+    bus_positions: "silver_bus_positions"
+    mco: "silver_mco"
+  gold:
+    frota_ativa_por_linha_dia: "gold_frota_ativa_por_linha_dia"
+    demanda_mco_por_linha_mes: "gold_demanda_mco_por_linha_mes"
